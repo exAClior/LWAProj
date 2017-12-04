@@ -7,13 +7,13 @@ import recommender_pb2
 import recommender_pb2_grpc
 
 
-def run(id):
+def run(userID, userName):
   //The channel need to update to the server IP 
   channel = grpc.insecure_channel('localhost:50051')
   stub = recommender_pb2_grpc.RecommenderStub(channel)
   user = recommender_pb2.WhichUser()
-  user.userID = id
-  user.userName = name
+  user.userID = userID
+  user.userName = userName
   response = stub.Recommend(recommender_pb2.Recommend(user))
   return response.recommendedID
 
