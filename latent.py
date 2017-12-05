@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from random import randint
 from random import shuffle
+import math
 
 class MF():
 
@@ -46,7 +47,7 @@ class MF():
         # Perform stochastic gradient descent for number of iterations
         training_process = []
         for i in range(self.iterations):
-            np.random.shuffle(self.samples)
+            shuffle(self.samples)
             self.sgd()
             mse = self.mse()
             training_process.append((i, mse))
@@ -105,13 +106,30 @@ def gen():
             R[i][nums[j]] = randint(1,5)
     return R
 
-
-
-
-
 if __name__ == "__main__":
     R = gen()
-    mf = MF(R, K=10, alpha=0.1, beta=0.01, iterations=100)
+    mf = MF(R, K=10, alpha=0.1, beta=0.01, iterations=500)
     np.savetxt('origin.txt',R,fmt='%3f')
     training_process = mf.train()
     np.savetxt('after.txt',mf.full_matrix(),fmt='%3f')
+    intermediate = mf.full_matrix()-R
+    ans = np.zeros((20,20))
+    ans = ans + 1000
+    for i in range (0,20):
+        for j in range (i+1,20):
+            temp = intermediate[i] - intermediate[j]
+            tAns = temp.dot(temp.T)
+            ans[i][j] = ans[j][i] = tAns
+
+    diYi = np.argmin(ans,axis = 1)
+    for i in range (0,20):
+        ans[i][diYi[i]] = 1000
+
+    diEr = np.argmin(ans,axis = 1)
+    for i in range (0,20):
+        ans[i][diEr[i]] = 1000
+
+    diSan = np.argmin(ans,axis = 1)
+    print diYi
+    print diEr
+    print diSan
