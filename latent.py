@@ -4,6 +4,7 @@ import numpy as np
 from random import randint
 from random import shuffle
 import math
+import redis
 
 class MF():
 
@@ -108,6 +109,7 @@ def gen():
 
 if __name__ == "__main__":
     R = gen()
+    names = [  'Jaylan', 'Gonzalez', 'Leonel', 'Duarte', 'Marques', 'Conrad', 'Isabella', 'Brady', 'Adelaide', 'Lynch', 'Paul', 'Adams', 'Harper', 'Gould', 'Gracie', 'Strong', 'Campbell', 'Maldonado', 'Maxwell', 'Ramsey', 'Tristan', 'Watkins', 'Matthew', 'Lester', 'Efrain', 'Arellano', 'Marely', 'Bass', 'Adolfo', 'Miranda', 'Janae', 'Farley', 'Sherlyn', 'Hartman', 'Makena', 'Barker', 'Adalynn', 'Church', 'Hunter', 'Keller', 'Kendra', 'Browning', 'Peter', 'Mendez', 'Jasiah', 'Russo', 'Makaila', 'Coffey', 'Bryan', 'Francis', 'Aracely', 'Melton', 'Meredith', 'Edwards', 'Jamal', 'Fowler', 'Rodolfo', 'Cherry', 'Bryson', 'York', 'Kaylah', 'Ibarra', 'Reginald', 'Padilla', 'Kyleigh', 'Hinton', 'Gianna', 'Khan', 'Kaeden', 'Murray', 'Clinton', 'Herman', 'Immanuel', 'Parsons', 'Ada', 'Cowan', 'Elisha', 'Mata', 'Mallory', 'Hawkins', 'Randy', 'Mahoney', 'Micaela', 'Berger', 'Ireland', 'Fernandez', 'Presley', 'Anthony', 'Alexander', 'Tyler', 'Kayley', 'Ross', 'Zachariah', 'Perry', 'Toby', 'Hamilton', 'Charlie', 'Grimes', 'Branson', 'Hoover' ]
     mf = MF(R, K=10, alpha=0.1, beta=0.01, iterations=500)
     np.savetxt('origin.txt',R,fmt='%3f')
     training_process = mf.train()
@@ -130,6 +132,15 @@ if __name__ == "__main__":
         ans[i][diEr[i]] = 1000
 
     diSan = np.argmin(ans,axis = 1)
-    print diYi
-    print diEr
-    print diSan
+    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    
+    for i in range(0,50):
+        r.lpush(names[i],[names[diYi[i]],names[diEr[i]],names[diSan[i]]])
+        
+    print r.lrange(names[5],0,2)
+    print r.lrange(names[5],0,2)
+    print r.lrange(names[6],0,2)
+
+    
+    
+    
