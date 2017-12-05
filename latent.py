@@ -1,5 +1,3 @@
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
 from random import randint
 from random import shuffle
@@ -109,7 +107,7 @@ def gen():
 
 if __name__ == "__main__":
     R = gen()
-    names = [  'Jaylan', 'Gonzalez', 'Leonel', 'Duarte', 'Marques', 'Conrad', 'Isabella', 'Brady', 'Adelaide', 'Lynch', 'Paul', 'Adams', 'Harper', 'Gould', 'Gracie', 'Strong', 'Campbell', 'Maldonado', 'Maxwell', 'Ramsey', 'Tristan', 'Watkins', 'Matthew', 'Lester', 'Efrain', 'Arellano', 'Marely', 'Bass', 'Adolfo', 'Miranda', 'Janae', 'Farley', 'Sherlyn', 'Hartman', 'Makena', 'Barker', 'Adalynn', 'Church', 'Hunter', 'Keller', 'Kendra', 'Browning', 'Peter', 'Mendez', 'Jasiah', 'Russo', 'Makaila', 'Coffey', 'Bryan', 'Francis', 'Aracely', 'Melton', 'Meredith', 'Edwards', 'Jamal', 'Fowler', 'Rodolfo', 'Cherry', 'Bryson', 'York', 'Kaylah', 'Ibarra', 'Reginald', 'Padilla', 'Kyleigh', 'Hinton', 'Gianna', 'Khan', 'Kaeden', 'Murray', 'Clinton', 'Herman', 'Immanuel', 'Parsons', 'Ada', 'Cowan', 'Elisha', 'Mata', 'Mallory', 'Hawkins', 'Randy', 'Mahoney', 'Micaela', 'Berger', 'Ireland', 'Fernandez', 'Presley', 'Anthony', 'Alexander', 'Tyler', 'Kayley', 'Ross', 'Zachariah', 'Perry', 'Toby', 'Hamilton', 'Charlie', 'Grimes', 'Branson', 'Hoover' ]
+    names = [  'Jaylan Gonzalez ', 'Leonel Duarte', 'Marques Conrad', 'Isabella Brady', 'Adelaide Lynch', 'Paul Adams', 'Harper Gould', 'Gracie Strong', 'Campbell Maldonado', 'Maxwell Ramsey', 'Tristan Watkins', 'Matthew Lester', 'Efrain Arellano', 'Marely Bass', 'Adolfo Miranda', 'Janae Farley', 'Sherlyn Hartman', 'Makena Barker', 'Adalynn Church', 'Hunter Keller', 'Kendra Browning', 'Peter Mendez', 'Jasiah Russo', 'Makaila Coffey', 'Bryan Francis', 'Aracely Melton', 'Meredith Edwards', 'Jamal Fowler', 'Rodolfo Cherry', 'Bryson York', 'Kaylah Ibarra', 'Reginald Padilla', 'Kyleigh Hinton', 'Gianna Khan', 'Kaeden Murray', 'Clinton Herman', 'Immanuel Parsons', 'Ada Cowan', 'Elisha Mata', 'Mallory Hawkins', 'Randy Mahoney', 'Micaela Berger', 'Ireland Fernandez', 'Presley Anthony', 'Alexander Tyler', 'Kayley Ross', 'Zachariah Perry', 'Toby Hamilton', 'Charlie Grimes', 'Branson Hoover']
     mf = MF(R, K=10, alpha=0.1, beta=0.01, iterations=500)
     np.savetxt('origin.txt',R,fmt='%3f')
     training_process = mf.train()
