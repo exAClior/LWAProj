@@ -115,23 +115,23 @@ if __name__ == "__main__":
     training_process = mf.train()
     np.savetxt('after.txt',mf.full_matrix(),fmt='%3f')
     intermediate = mf.full_matrix()-R
-    ans = np.zeros((20,20))
+    ans = np.zeros((50,50))
     ans = ans + 1000
-    for i in range (0,20):
-        for j in range (i+1,20):
+    for i in range (0,50):
+        for j in range (i+1,50):
             temp = intermediate[i] - intermediate[j]
             tAns = temp.dot(temp.T)
             ans[i][j] = ans[j][i] = tAns
 
     diYi = np.argmin(ans,axis = 1)
-    for i in range (0,20):
+    for i in range (0,50):
         ans[i][diYi[i]] = 1000
 
     diEr = np.argmin(ans,axis = 1)
-    for i in range (0,20):
+    for i in range (0,50):
         ans[i][diEr[i]] = 1000
+    diSan = np.argmin(ans,axis = 1)        
 
-    diSan = np.argmin(ans,axis = 1)
     r = redis.StrictRedis(host='localhost', port=6379, db=0)
     
     for i in range(0,50):
