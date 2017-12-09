@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package requester;
+
+service Recommender{
+	rpc Request(WhichUser) returns (UserList){}
+}
+
+message WhichServer{
+  string serverID = 1;
+  //needed because we are partitioning
+}
+message UserList{
+  repeated string userID = 1;
+  repeated int whichLabels = 2; // for each user which three labels are rated
+  repeated int labelRatings = 3; // for each label what is the rating
+
+}
