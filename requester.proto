@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package requester;
 
-service Recommender{
-	rpc Request(WhichUser) returns (UserList){}
+service Requester{
+	rpc Request(WhichServer) returns (UserList){}
 }
 
 message WhichServer{
