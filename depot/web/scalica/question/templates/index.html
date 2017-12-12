@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="/question/answer/">New Question Process ... </a>
+<ul>
+  {% for an in answers %}
+  <li>
+  <p> Q.{{an.question_id}}</p>
+  <p>Rank: {{ an.answer}}</p>
+  </li>
+  {%endfor%}
+</ul>
+{% endblock %}

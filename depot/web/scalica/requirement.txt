@@ -1,0 +1,4 @@
+django
+django-debug-toolbar
+MySQL-python
+grpc
