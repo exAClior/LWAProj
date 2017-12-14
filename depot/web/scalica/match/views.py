@@ -23,7 +23,7 @@ def match(request):
         a = Questions.objects.order_by('?')[:3]
         return render(request, 'answer.html', {'answers':a})
     else:
-        na = MatchRequest(user_id = request.user.id, question_id=a1id, answer=a1)
+        na = MatchRequest(user_id = request.user.id)
         na.save()
         return HttpResponseRedirect('/match/')
 
