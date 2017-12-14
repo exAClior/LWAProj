@@ -5,7 +5,7 @@ from django.db import models
 
 # Create your models here.
 
-class MatchResult(models.Model):
+class MatchList(models.Model):
     """
     """
     user_id = models.BigIntegerField(null=False)
