@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="/question/answer/">New Question Process ... </a>
+<form action="/question/answer/" method="POST">
+  {% csrf_token %}
+  {% for an in answers %}
+  <p> Q.{{an.id}}: {{an.question}}</p>
+  <input hidden="hidden" name="a{{forloop.counter}}id" type="text" value="{{an.id}}"></input>
+  <p>Rank:</p>
+  <input name="a{{forloop.counter}}" type="radio" value="1">1</input>
+  <input name="a{{forloop.counter}}" type="radio" value="2">2</input>
+  <input name="a{{forloop.counter}}" type="radio" value="3">3</input>
+  <input name="a{{forloop.counter}}" type="radio" value="4">4</input>
+  <input name="a{{forloop.counter}}" type="radio" value="5">5</input>
+  {%endfor%}
+  </br>
+  <button type="submit">Answer OK</button>
+</form>
+{% endblock %}
