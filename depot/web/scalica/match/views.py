@@ -29,13 +29,8 @@ def match(request):
         a2 = request.POST.get("a2", "")
         a3 = request.POST.get("a3", "")
 
-        na = UserAnswer(user_id = request.user.id, question_id=a1id, answer=a1)
-        na.save()
-        na = UserAnswer(user_id = request.user.id, question_id=a2id, answer=a2)
-        na.save()
-        na = UserAnswer(user_id = request.user.id, question_id=a3id, answer=a3)
-        na.save()
-
+        na = MatchRequest(user_id = request.user.id, question_id=a1id, answer=a1)
+        
         return HttpResponseRedirect('/match/')
 
 
