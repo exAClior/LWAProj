@@ -11,7 +11,8 @@ from question.models import *
 def match(request):
     if request.user.is_authenticated() or True:
         uid = request.user.id
-        a = UserList.objects.filter(user_id=uid)
+        //rpc call to get the match list
+        a = MatchList
         return render(request, 'match.html', {'users':a})
     else:
         return  HttpResponseRedirect('/micro/')
