@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<a href="/match/">Matching Process ... </a>
-<form action="/match/" method="POST">
-  
+<a href="/question/answer/">New Question Process ... </a>
+<form action="/question/answer/" method="POST">
+  {% csrf_token %}
+  {% for usr in users %}
   <input hidden="hidden" name="a{{forloop.counter}}id" type="text" value="{{an.id}}"></input>
-  <p>Rank:</p>
-  <p> Q.{{user.name}}</p>
-  <p> Q.{{user.name}}</p>
-  <p> Q.{{user.name}}</p>
+  <p>Matches:</p>
+  <p> Q.{{usr.id}}: {{usr.name}}</p>
+  {%endfor%}
   </br>
-  <button type="submit">New Match</button>
+  <button type="submit">Answer OK</button>
 </form>
 {% endblock %}
