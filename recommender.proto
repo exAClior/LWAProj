@@ -8,11 +8,8 @@ service Recommender{
 
 message WhichUser{
   string userID = 1;
-  string userName = 2;
 }
 message UserList{
   string userID = 1;
-  string userName = 2;
-  repeated string recommendedID = 3;
-  repeated string recommendedName = 4;
+  repeated string recommendedID = 2;
 }
