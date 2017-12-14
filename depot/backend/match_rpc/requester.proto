@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package requester;
+
+service Recommender{
+	rpc Request(WhichUser) returns (UserList){}
+}
+
+message WhichUser{
+	string serverID = 1;
+}
+message UserList {
+	repeated UserAnswer ua = 1;
+
+}
+
+message UserAnswer {
+	string userid = 1;
+	repeated Answer answer = 2;
+}
+
+message Answer {
+	string whichLabels = 2;
+	string labelRatings = 3;
+}
