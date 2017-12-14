@@ -18,17 +18,13 @@ def index(request):
 
 
 @login_required
-def answer(request):
+def match(request):
     if request.method == "GET" :
         a = Questions.objects.order_by('?')[:3]
         return render(request, 'answer.html', {'answers':a})
     else:
         uid=request.user.id
-        UserAnswer.objects.filter(user_id=uid).delete()
-        a1id = request.POST.get("a1id", "1")
-        a2id = request.POST.get("a2id", "1")
-        a3id = request.POST.get("a3id", "1")
-
+    
         a1 = request.POST.get("a1", "")
         a2 = request.POST.get("a2", "")
         a3 = request.POST.get("a3", "")
@@ -40,7 +36,7 @@ def answer(request):
         na = UserAnswer(user_id = request.user.id, question_id=a3id, answer=a3)
         na.save()
 
-        return HttpResponseRedirect('/question/')
+        return HttpResponseRedirect('/match/')
 
 
 
