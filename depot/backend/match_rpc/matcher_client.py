@@ -13,7 +13,6 @@ def run(userID, userName):
   stub = matcher_pb2_grpc.MatcherStub(channel)
   user = matcher_pb2.WhichUser()
   user.userID = userID
-  user.userName = userName
   response = stub.Match(matcher_pb2.Match(user))
   return response.matchID
 
