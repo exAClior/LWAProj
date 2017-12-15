@@ -3,8 +3,8 @@ import grpc
 
 import grpc
 
-import recommender_pb2
-import recommender_pb2_grpc
+import matcher_pb2
+import matcher_pb2_grpc
 
 
 def run(userID, userName):
