@@ -4,7 +4,7 @@ DATABASES = {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'scalica',
     'USER': 'root',
-    'PASSWORD': 'huangtao',
+    'PASSWORD': 'foobarzoot',
     'HOST': 'localhost',
     'PORT': '3306',
   },
