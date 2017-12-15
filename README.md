@@ -12,5 +12,6 @@ compute the full ranking matrix. It will then output three recommended user for 
 this information in a Redis server, upon the request of an RPC call, it will retrieve these information and send to scalica for 
 display.
 
+Matcher_server also functions as the requester client as it requests stream info from the server
 source http://www.albertauyeung.com/post/python-matrix-factorization/ 
 
