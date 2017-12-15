@@ -7,7 +7,7 @@ Access http://ec2-54-183-149-48.us-west-1.compute.amazonaws.com/micro to first r
 
 Access http://ec2-54-183-149-48.us-west-1.compute.amazonaws.com/question while logged in to answer the questions on perference.
 
-However, Zhengxu Li did not have time to finish the rpc call that retrieves data from the EC2 server. 
+However, we did not have time to finish the rpc call that retrieves data from the EC2 server. 
 
 The latent factor model algorithm is completed. The code is in ~/LWAProj/backend/matcher_server.py
 The RPC that writes back to EC2 is also completed Yusheng Zhao has grouped them together into the matcher_server.py file. However, since no data can be read from the EC2 server via RPC call, the algorithm cannot output anything useful.
