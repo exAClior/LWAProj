@@ -7,7 +7,7 @@ import matcher_pb2
 import matcher_pb2_grpc
 
 
-def run(userID, userName):
+def run(userID):
   //The channel need to update to the server IP 
   channel = grpc.insecure_channel('localhost:50051')
   stub = matcher_pb2_grpc.MatcherStub(channel)
