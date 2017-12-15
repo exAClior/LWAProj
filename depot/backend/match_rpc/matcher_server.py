@@ -142,17 +142,32 @@ def getRanking(int serverId):
     try:
         response = stub.Reuqest(requester_pb2.WhichUser(serverID = serverId))
         rowNum, colNum = R.shape
-        for userAnswer in response.ua:
-            
+        rowNum = rowNum - 1
+        #process the received data
+        #add them to matrix R / update the existing user info in R
+        for userAns in response.ua:
+            #if user is already in R, update the rankings sent
+            if userAns.userid in id_dict:
+                curRow = id_dict[userAns.userid]
+                for ans in userAns.answer:
+                    R[curRow][ans.whichLabels] = ans.labelRatings
+            #if not in R, create new row of ranking, append to the end of R
+            else:
+                #keep track of userID to row number and row number back to userID
+                id_dict[userAns.userid] = rowNum
+                id_dict_reverse[rowNum] = userAns.userid
+                nextRow = np.zeros(20)
+                for ans in userAns.answer:
+                        nextRow[ans.whichLabels] = ans.labelRatings
+                R = vstack(R,nextRow)
+                rowNum = rowNum + 1
         return None
     except grpc.RpcError:
         return None
 
 def getFullMatrix():
     mf = MF(R)
-    #np.savetxt('origin.txt',R,fmt='%3f')
     mf.train()
-    #np.savetxt('after.txt',mf.full_matrix(),fmt='%3f')
     intermediate = mf.full_matrix()-R
     userNum , labelNum = intermediate.shape
     ans = np.zeros((userNum,userNum)) #number of users
@@ -163,6 +178,8 @@ def getFullMatrix():
             tAns = temp.dot(temp.T)
             ans[i][j] = ans[j][i] = tAns
 
+    #get the first three users whose ranking row in matrix R
+    #has the smallest difference square as the user in question
     diYi = np.argmin(ans,axis = 1)
     for i in range (0,userNum):
         ans[i][diYi[i]] = 1000
@@ -189,4 +206,9 @@ def serve():
     server.stop(0)
 
 if __name__ == "__main__":
+    #It will update the full matrix once every day
+    #then, it will store the results in Redis server locally
+    #upon request, it will send the results via RPC call
+    getRanking()
+    getFullMatrix()
     serve()
