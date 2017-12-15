@@ -13,5 +13,4 @@ message WhichUser{
 message MatchList{
   string userID = 1;
   repeated string matchID = 2;
-  repeated string matchName = 3;
 }
