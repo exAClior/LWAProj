@@ -125,15 +125,15 @@ def gen(int num_users):
 
 
 
-class Recommender(recommender_pb2_grpc.RecommenderServicer):
+class Matcher(matcher_pb2_grpc.MatcherServicer):
 
-  def Recommender(self, request, context):
-    reply = recommender_pb2.UserList()
+  def Matcher(self, request, context):
+    reply = matcher_pb2.UserList()
 	reply.userID = request.userID
     if request.userID in id_dict:
-        reply.recommendedID = rdb.lrange(request.userID,0,1)
+        reply.matcherID = rdb.lrange(request.userID,0,1)
     else:
-        reply.recommendedID = {'N/A','N/A','N/A'}
+        reply.matcherID = {'N/A','N/A','N/A'}
 	return reply
 
 def getRanking(int serverId):
@@ -148,7 +148,7 @@ def getRanking(int serverId):
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  recommender_pb2_grpc.add_RecommenderServicer_to_server(Recommender(), server)
+  matcher_pb2_grpc.add_MatcherServicer_to_server(Matcher(), server)
   server.add_insecure_port('[::]:50021')
   server.start()
   try:
