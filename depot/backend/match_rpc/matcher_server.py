@@ -125,40 +125,30 @@ def gen(int num_users):
 
 
 
-class Matcher(matcher_pb2_grpc.MatcherServicer):
+class Recommender(recommender_pb2_grpc.RecommenderServicer):
 
-  def Matcher(self, request, context):
-    reply = matcher_pb2.UserList()
+  def Recommender(self, request, context):
+    reply = recommender_pb2.UserList()
 	reply.userID = request.userID
     if request.userID in id_dict:
-        reply.matcherID = rdb.lrange(request.userID,0,1)
+        reply.recommendedID = rdb.lrange(request.userID,0,1)
     else:
-        reply.matcherID = {'N/A','N/A','N/A'}
+        reply.recommendedID = {'N/A','N/A','N/A'}
 	return reply
 
 def getRanking(int serverId):
-    channel = grpc.insecure_channel('23.236.49.28:50051')#IP address for AWS server
+    channel = grpc.insecure_channel('54.183.149.48:50051')#IP address for AWS server
     stub = requester_pb2_grpc.RequesterStub(channel)
     try:
         response = stub.Reuqest(requester_pb2.WhichUser(serverID = serverId))
-        
+        rowNum, colNum = R.shape
+        for userAnswer in response.ua:
+            
         return None
     except grpc.RpcError:
         return None
 
-def serve():
-  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  matcher_pb2_grpc.add_MatcherServicer_to_server(Matcher(), server)
-  server.add_insecure_port('[::]:50021')
-  server.start()
-  try:
-    while True:
-      time.sleep(_ONE_DAY_IN_SECONDS)
-  except KeyboardInterrupt:
-    server.stop(0)
-
-if __name__ == "__main__":
-
+def getFullMatrix():
     mf = MF(R)
     #np.savetxt('origin.txt',R,fmt='%3f')
     mf.train()
@@ -185,3 +175,18 @@ if __name__ == "__main__":
     for i in range(0,userNum):
         rdb.delete(id_dict_reverse[i])
         rdb.lpush(id_dict_reverse[i],[id_dict_reverse[diYi[i]],id_dict_reverse[diEr[i]],id_dict_reverse[diSan[i]]])
+
+
+def serve():
+  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+  recommender_pb2_grpc.add_RecommenderServicer_to_server(Recommender(), server)
+  server.add_insecure_port('[::]:50021')
+  server.start()
+  try:
+    while True:
+      time.sleep(_ONE_DAY_IN_SECONDS)
+  except KeyboardInterrupt:
+    server.stop(0)
+
+if __name__ == "__main__":
+    serve()
