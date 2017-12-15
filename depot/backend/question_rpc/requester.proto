@@ -20,6 +20,6 @@ message UserAnswer {
 }
 
 message Answer {
-	string whichLabels = 2;
-	string labelRatings = 3;
+	string whichLabels = 1;
+	string labelRatings = 2;
 }
