@@ -1,15 +1,17 @@
 syntax = "proto3";
 
-package recommender;
+package matcher;
 
-service Recommender{
-	rpc Recommend(WhichUser) returns (UserList){}
+service Matcher{
+	rpc Match(WhichUser) returns (MatchList){}
 }
 
 message WhichUser{
   string userID = 1;
 }
-message UserList{
+
+message MatchList{
   string userID = 1;
-  repeated string recommendedID = 2;
+  repeated string matchID = 2;
+  repeated string matchName = 3;
 }
