@@ -11,7 +11,7 @@ Access http://ec2-54-183-149-48.us-west-1.compute.amazonaws.com/question while l
 The RPC that writes back to EC2 is also completed Yusheng Zhao has grouped them together into the matcher_server.py file. However, since no data can be read from the EC2 server via RPC call, the algorithm cannot output anything useful.
 Since no data can be retrieved from the GCE server, no matching data can be displayed from Wentao Zou.
 
-3. 
+3. Everything for displaying the match view is finished, and all the codes are stored in depot/web/scalica/match. The RPC call for user to access their match from Redis is finished too, which is called matcher_client.py in depot/backend/match. THE DEPLOYMENT on google VM failed.
 
 What we failed to achieve:
 1. Deploy the RPCs connecting the user input and output with the latent factor model.
